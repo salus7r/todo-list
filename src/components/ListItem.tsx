@@ -8,12 +8,13 @@ import TaskComplete from "./TaskCompleteButton";
 import DeleteTask from "./TaskDeleteButton";
 import ViewEditTask from "./ViewEditTaskButton";
 
-const { deleteTodoItem, updateStatusTodoItem, fetchTodos } = todoActions;
+const { deleteTodoItem, updateTodoItem, updateStatusTodoItem, fetchTodos } = todoActions;
 
 interface IProps {
 	filterType: FilterType;
 	item: TodoItem;
 	deleteTodoItem: typeof deleteTodoItem;
+	updateTodoItem: typeof updateTodoItem;
 	updateStatusTodoItem: typeof updateStatusTodoItem;
 	fetchTodos: typeof fetchTodos;
 }

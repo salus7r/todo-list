@@ -112,6 +112,21 @@ class TodosReducer extends ImmerReducer<TodoManagement> {
 		this.todoLoading(true);
 	}
 
+	updateTodoListAfterStatusTaskUpdate(_res: TodoItem, _haveError: boolean) {
+		if (!_haveError) {
+			this.draftState.todoList = this.draftState.todoList.map(item => {
+				if (item.id == _res.id) {
+					item = _res;
+				}
+
+				return item;
+			});
+		} else {
+			this.setError(true);
+		}
+		this.todoLoading(false);
+	}
+
 	updateStatusTodoTaskItem(_req: UpdateTaskItemStatusReq) {
 		this.todoLoading(true);
 	}

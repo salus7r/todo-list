@@ -43,7 +43,7 @@ class TasksList extends Component<IProps, IState> {
 	};
 
 	render() {
-		const { todos, deleteTodoItem, updateStatusTodoItem, fetchTodos } = this.props;
+		const { todos, deleteTodoItem, updateTodoItem, updateStatusTodoItem, fetchTodos } = this.props;
 		const { filterType } = this.state;
 		const { loading, todoList } = todos;
 
@@ -65,6 +65,7 @@ class TasksList extends Component<IProps, IState> {
 								filterType={filterType}
 								fetchTodos={fetchTodos}
 								deleteTodoItem={deleteTodoItem}
+								updateTodoItem={updateTodoItem}
 								updateStatusTodoItem={updateStatusTodoItem}
 								item={item}
 							/>

@@ -78,6 +78,23 @@ function* deleteTodoItem(action: ReturnType<typeof todoActions.deleteTodoItem>) 
 	}
 }
 
+function* updateTodoItem(action: ReturnType<typeof todoActions.updateTodoItem>) {
+	try {
+		var haveError = false;
+		var response: TodoItem = yield _todoClient
+			.updateTodoItem({ request: action.payload })
+			.then(res => res)
+			.catch(error => {
+				console.log(error);
+				haveError = true;
+			});
+		yield put(todoActions.updateTodoListAfterStatusTaskUpdate(response, haveError));
+	} catch (e) {
+		yield put(todoActions.setError(true));
+		yield put(todoActions.todoLoading(false));
+	}
+}
+
 //watcher
 
 export default function* todoSagas() {
@@ -85,6 +102,7 @@ export default function* todoSagas() {
 		yield takeEvery(todoActions.fetchTodos.type, getTodos),
 		yield takeEvery(todoActions.addTodoItem.type, addTodoItem),
 		yield takeEvery(todoActions.updateStatusTodoItem.type, updateStatusTodoItem),
-		yield takeEvery(todoActions.deleteTodoItem.type, deleteTodoItem)
+		yield takeEvery(todoActions.deleteTodoItem.type, deleteTodoItem),
+		yield takeEvery(todoActions.updateTodoItem.type, updateTodoItem)
 	]);
 }

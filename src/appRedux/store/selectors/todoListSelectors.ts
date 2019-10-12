@@ -61,6 +61,7 @@ export default class TodoListSelectors {
 		return {
 			fetchTodos,
 			deleteTodoItem,
+			updateTodoItem,
 			selectTodo,
 			updateStatusTodoItem
 		};
@@ -97,6 +98,7 @@ type ITodoListingSelectorProps = {
 type ITodoListingDispatchers = {
 	fetchTodos: typeof fetchTodos;
 	deleteTodoItem: typeof deleteTodoItem;
+	updateTodoItem: typeof updateTodoItem;
 	selectTodo: typeof selectTodo;
 	updateStatusTodoItem: typeof updateStatusTodoItem;
 };

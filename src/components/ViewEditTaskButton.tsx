@@ -1,16 +1,17 @@
 import { todoActions } from "../appRedux/modules/todos";
-import { FilterType } from "../appRedux/modules/todos/types";
-import { TodoItem } from "../autorestClients/TodoList/TodoList.Client/models";
+import { FilterType, StatusType } from "../appRedux/modules/todos/types";
+import { TodoItem, UpdateTodoItemReq } from "../autorestClients/TodoList/TodoList.Client/models";
 import React, { Component, Fragment } from "react";
-import { Tooltip, Button, Form, Modal, Input, Radio } from "antd";
+import { Tooltip, Button, Form, Modal, Input, Radio, DatePicker } from "antd";
 import { FormComponentProps } from "antd/lib/form";
-const { deleteTodoItem, updateStatusTodoItem, fetchTodos } = todoActions;
+import moment from "moment";
+
+const { updateTodoItem, fetchTodos } = todoActions;
 
 interface IProps {
 	filterType: FilterType;
 	item: TodoItem;
-	deleteTodoItem: typeof deleteTodoItem;
-	updateStatusTodoItem: typeof updateStatusTodoItem;
+	updateTodoItem: typeof updateTodoItem;
 	fetchTodos: typeof fetchTodos;
 }
 
@@ -29,14 +30,21 @@ class ViewEditTask extends Component<IProps> {
 		this.setState({ visible: false });
 	};
 
-	handleCreate = () => {
+	handleUpdate = () => {
 		const { form } = this.formRef.props;
-		form.validateFields((err, values) => {
+		const { updateTodoItem, filterType, item } = this.props;
+
+		form.validateFields((err, values: UpdateTodoItemReq) => {
 			if (err) {
 				return;
 			}
 
-			console.log("Received values of form: ", values);
+			values.id = item.id;
+
+			updateTodoItem(values);
+			setTimeout(function() {
+				fetchTodos(filterType);
+			}, 500);
 			form.resetFields();
 			this.setState({ visible: false });
 		});
@@ -47,7 +55,7 @@ class ViewEditTask extends Component<IProps> {
 	};
 
 	render() {
-		const { item, fetchTodos, filterType } = this.props;
+		const { item } = this.props;
 
 		return (
 			<Fragment>
@@ -60,7 +68,8 @@ class ViewEditTask extends Component<IProps> {
 					wrappedComponentRef={this.saveFormRef}
 					visible={this.state.visible}
 					onCancel={this.handleCancel}
-					onCreate={this.handleCreate}
+					onUpdate={this.handleUpdate}
+					itemData={item}
 				/>
 			</Fragment>
 		);
@@ -68,35 +77,47 @@ class ViewEditTask extends Component<IProps> {
 }
 
 interface IViewEditTaskFormProps extends FormComponentProps {
+	itemData: TodoItem;
 	visible: boolean;
 	onCancel: () => void;
-	onCreate: () => void;
+	onUpdate: () => void;
 }
 
 const ViewEditTaskForm = Form.create<IViewEditTaskFormProps>({ name: "form_in_modal" })(
 	// eslint-disable-next-line
 	class extends React.Component<IViewEditTaskFormProps> {
 		render() {
-			const { visible, onCancel, onCreate, form } = this.props;
+			const { visible, onCancel, onUpdate, form, itemData } = this.props;
 			const { getFieldDecorator } = form;
+
+			const dateFormat = "YYYY/MM/DD";
+
 			return (
-				<Modal visible={visible} title="Create a new collection" okText="Create" onCancel={onCancel} onOk={onCreate}>
+				<Modal width={800} visible={visible} title="View / Edit Task" okText="Update" onCancel={onCancel} onOk={onUpdate}>
 					<Form layout="vertical">
 						<Form.Item label="Title">
 							{getFieldDecorator("title", {
-								rules: [{ required: true, message: "Please input the title of collection!" }]
-							})(<Input />)}
+								rules: [{ required: true, message: "Please input the title of collection!" }],
+								initialValue: itemData.title
+							})(<Input autoFocus />)}
 						</Form.Item>
-						<Form.Item label="Description">{getFieldDecorator("description")(<Input type="textarea" />)}</Form.Item>
-						<Form.Item className="collection-create-form_last-form-item">
-							{getFieldDecorator("modifier", {
-								initialValue: "public"
-							})(
-								<Radio.Group>
-									<Radio value="public">Public</Radio>
-									<Radio value="private">Private</Radio>
-								</Radio.Group>
-							)}
+						<Form.Item label="Description">
+							{getFieldDecorator("description", {
+								initialValue: itemData.description
+							})(<Input type="textarea" />)}
+						</Form.Item>
+						<Form.Item label="DueDate">
+							<DatePicker
+								id="dueDate"
+								defaultValue={moment(!!itemData.dueDate ? new Date(itemData.dueDate) : new Date(), dateFormat)}
+								format={dateFormat}
+							/>
+						</Form.Item>
+						<Form.Item label="status">
+							<Radio.Group id={"status"} defaultValue={itemData.status} buttonStyle="solid">
+								<Radio.Button value={StatusType.Active}>Active</Radio.Button>
+								<Radio.Button value={StatusType.Completed}>Completed</Radio.Button>
+							</Radio.Group>
 						</Form.Item>
 					</Form>
 				</Modal>
