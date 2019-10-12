@@ -16,6 +16,7 @@ export interface TaskItem {
   id?: string;
   title?: string;
   status?: number;
+  createdDate?: Date;
 }
 
 /**
@@ -28,6 +29,7 @@ export interface TodoItem {
   dueDate?: Date;
   status?: number;
   subTasks?: TaskItem[];
+  createdDate?: Date;
 }
 
 /**
@@ -117,6 +119,16 @@ export interface DeleteTaskItemReq {
  */
 export interface TodoListAPIOptions extends ServiceClientOptions {
   baseUri?: string;
+}
+
+/**
+ * Optional Parameters.
+ */
+export interface TodoListAPIGetTodoListOptionalParams extends msRest.RequestOptionsBase {
+  /**
+   * Default value: 1.
+   */
+  filterType?: number;
 }
 
 /**

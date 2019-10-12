@@ -4,10 +4,8 @@ export interface TodoManagement {
 	loading: boolean;
 	todoList: Array<TodoItem>;
 	todoItemSelected: TodoItem;
-}
-
-export interface TodoCriteria {
-	filterType: FilterType;
+	filterOptionSelected: FilterType;
+	apiError: boolean;
 }
 
 export enum FilterType {

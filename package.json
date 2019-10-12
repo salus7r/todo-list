@@ -10,6 +10,7 @@
 		"@types/react": "^16.9.5",
 		"@types/react-dom": "^16.9.1",
 		"@types/redux-saga": "^0.10.5",
+		"antd": "^3.23.6",
 		"immer-reducer": "0.7.7",
 		"lodash": "^4.17.11",
 		"lodash.debounce": "^4.0.8",
@@ -28,7 +29,7 @@
 		"build": "react-scripts build",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject",
-		"todoRestClient": "autorest --typescript --input-file=swaggerFiles/swagger.json --output-folder=src/autorestClients --source-code-folder-path=TodoList/TodoList.Client --license-header=MICROSOFT_MIT_NO_VERSION --package-name=TodoList.Client --package-version=1.0.0 --namespace=TodoList.Client --add-credentials"
+		"todoRestClient": "autorest --typescript --input-file=swaggerFiles/swagger.json --output-folder=src/autorestClients --source-code-folder-path=TodoList/TodoList.Client --license-header=MICROSOFT_MIT_NO_VERSION --package-name=TodoList.Client --package-version=1.0.0 --namespace=TodoList.Client"
 	},
 	"eslintConfig": {
 		"extends": "react-app"

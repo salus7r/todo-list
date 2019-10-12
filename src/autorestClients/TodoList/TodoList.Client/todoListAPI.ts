@@ -11,23 +11,23 @@
 import * as msRest from "@azure/ms-rest-js";
 import * as Models from "./models";
 import * as Mappers from "./models/mappers";
+import * as Parameters from "./models/parameters";
 import { TodoListAPIContext } from "./todoListAPIContext";
 
 class TodoListAPI extends TodoListAPIContext {
   /**
    * Initializes a new instance of the TodoListAPI class.
-   * @param credentials Subscription credentials which uniquely identify client subscription.
    * @param [options] The parameter options
    */
-  constructor(credentials: msRest.ServiceClientCredentials, options?: Models.TodoListAPIOptions) {
-    super(credentials, options);
+  constructor(options?: Models.TodoListAPIOptions) {
+    super(options);
   }
 
   /**
    * @param [options] The optional parameters
    * @returns Promise<Models.GetTodoListResponse>
    */
-  getTodoList(options?: msRest.RequestOptionsBase): Promise<Models.GetTodoListResponse>;
+  getTodoList(options?: Models.TodoListAPIGetTodoListOptionalParams): Promise<Models.GetTodoListResponse>;
   /**
    * @param callback The callback
    */
@@ -36,8 +36,8 @@ class TodoListAPI extends TodoListAPIContext {
    * @param options The optional parameters
    * @param callback The callback
    */
-  getTodoList(options: msRest.RequestOptionsBase, callback: msRest.ServiceCallback<Models.TodoItem[]>): void;
-  getTodoList(options?: msRest.RequestOptionsBase | msRest.ServiceCallback<Models.TodoItem[]>, callback?: msRest.ServiceCallback<Models.TodoItem[]>): Promise<Models.GetTodoListResponse> {
+  getTodoList(options: Models.TodoListAPIGetTodoListOptionalParams, callback: msRest.ServiceCallback<Models.TodoItem[]>): void;
+  getTodoList(options?: Models.TodoListAPIGetTodoListOptionalParams | msRest.ServiceCallback<Models.TodoItem[]>, callback?: msRest.ServiceCallback<Models.TodoItem[]>): Promise<Models.GetTodoListResponse> {
     return this.sendOperationRequest(
       {
         options
@@ -236,6 +236,9 @@ const serializer = new msRest.Serializer(Mappers);
 const getTodoListOperationSpec: msRest.OperationSpec = {
   httpMethod: "GET",
   path: "TodoApp",
+  queryParameters: [
+    Parameters.filterType
+  ],
   contentType: "application/json; charset=utf-8",
   responses: {
     200: {

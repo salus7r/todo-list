@@ -8,7 +8,9 @@
 				"operationId": "GetTodoList",
 				"consumes": [],
 				"produces": ["text/plain", "application/json", "text/json"],
-				"parameters": [],
+				"parameters": [
+					{ "name": "filterType", "in": "query", "required": false, "type": "integer", "format": "int32", "default": 1, "enum": [1, 2, 3] }
+				],
 				"responses": {
 					"200": { "description": "Success", "schema": { "uniqueItems": false, "type": "array", "items": { "$ref": "#/definitions/TodoItem" } } }
 				}
@@ -104,7 +106,8 @@
 				"description": { "type": "string" },
 				"dueDate": { "format": "date-time", "type": "string" },
 				"status": { "format": "int32", "enum": [1, 2], "type": "integer" },
-				"subTasks": { "uniqueItems": false, "type": "array", "items": { "$ref": "#/definitions/TaskItem" } }
+				"subTasks": { "uniqueItems": false, "type": "array", "items": { "$ref": "#/definitions/TaskItem" } },
+				"createdDate": { "format": "date-time", "type": "string" }
 			}
 		},
 		"TaskItem": {
@@ -112,7 +115,8 @@
 			"properties": {
 				"id": { "format": "uuid", "type": "string" },
 				"title": { "type": "string" },
-				"status": { "format": "int32", "enum": [1, 2], "type": "integer" }
+				"status": { "format": "int32", "enum": [1, 2], "type": "integer" },
+				"createdDate": { "format": "date-time", "type": "string" }
 			}
 		},
 		"AddTodoItemReq": {

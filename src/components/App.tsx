@@ -1,21 +1,25 @@
 import React from "react";
-import logo from "../styles/logo.svg";
+import { connect } from "react-redux";
+import TodoListSelectors, { ITodoListStateProps } from "../appRedux/store/selectors/todoListSelectors";
+import AddTodoItemForm from "./AddTodoItemForm";
+
+import "antd/dist/antd.css";
 import "../styles/App.css";
 
-const App: React.FC = () => {
+interface IProps extends ITodoListStateProps {}
+
+const App: React.FC<IProps> = props => {
+	const { loading, addTodoItem } = props;
+
 	return (
 		<div className="App">
-			<header className="App-header">
-				<img src={logo} className="App-logo" alt="logo" />
-				<p>
-					Edit <code>src/App.tsx</code> and save to reload.
-				</p>
-				<a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-					Learn React
-				</a>
-			</header>
+			<h1>Todo List</h1>
+			<AddTodoItemForm loading={loading} addTodoItem={addTodoItem} />
 		</div>
 	);
 };
 
-export default App;
+export default connect(
+	TodoListSelectors.todoListSelectors(),
+	TodoListSelectors.todoListDispatchers()
+)(App);

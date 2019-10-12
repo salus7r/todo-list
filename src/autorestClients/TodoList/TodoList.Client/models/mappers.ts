@@ -32,6 +32,12 @@ export const TaskItem: msRest.CompositeMapper = {
         type: {
           name: "Number"
         }
+      },
+      createdDate: {
+        serializedName: "createdDate",
+        type: {
+          name: "DateTime"
+        }
       }
     }
   }
@@ -83,6 +89,12 @@ export const TodoItem: msRest.CompositeMapper = {
               className: "TaskItem"
             }
           }
+        }
+      },
+      createdDate: {
+        serializedName: "createdDate",
+        type: {
+          name: "DateTime"
         }
       }
     }
