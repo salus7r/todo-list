@@ -1,0 +1,178 @@
+{
+	"swagger": "2.0",
+	"info": { "version": "v1", "title": "Todo List API" },
+	"paths": {
+		"/TodoApp": {
+			"get": {
+				"tags": ["TodoApp"],
+				"operationId": "GetTodoList",
+				"consumes": [],
+				"produces": ["text/plain", "application/json", "text/json"],
+				"parameters": [],
+				"responses": {
+					"200": { "description": "Success", "schema": { "uniqueItems": false, "type": "array", "items": { "$ref": "#/definitions/TodoItem" } } }
+				}
+			}
+		},
+		"/TodoApp/AddTodoItem": {
+			"post": {
+				"tags": ["TodoApp"],
+				"operationId": "AddTodoItem",
+				"consumes": ["application/json-patch+json", "application/json", "text/json", "application/*+json"],
+				"produces": ["text/plain", "application/json", "text/json"],
+				"parameters": [{ "name": "request", "in": "body", "required": false, "schema": { "$ref": "#/definitions/AddTodoItemReq" } }],
+				"responses": { "200": { "description": "Success", "schema": { "type": "boolean" } } }
+			}
+		},
+		"/TodoApp/UpdateTodoItem": {
+			"put": {
+				"tags": ["TodoApp"],
+				"operationId": "UpdateTodoItem",
+				"consumes": ["application/json-patch+json", "application/json", "text/json", "application/*+json"],
+				"produces": ["text/plain", "application/json", "text/json"],
+				"parameters": [{ "name": "request", "in": "body", "required": false, "schema": { "$ref": "#/definitions/UpdateTodoItemReq" } }],
+				"responses": { "200": { "description": "Success", "schema": { "type": "boolean" } } }
+			}
+		},
+		"/TodoApp/UpdateTodoItemStatus": {
+			"patch": {
+				"tags": ["TodoApp"],
+				"operationId": "UpdateTodoItemStatus",
+				"consumes": ["application/json-patch+json", "application/json", "text/json", "application/*+json"],
+				"produces": ["text/plain", "application/json", "text/json"],
+				"parameters": [{ "name": "request", "in": "body", "required": false, "schema": { "$ref": "#/definitions/UpdateTodoItemStatusReq" } }],
+				"responses": { "200": { "description": "Success", "schema": { "type": "boolean" } } }
+			}
+		},
+		"/TodoApp/DeleteTodoItem": {
+			"delete": {
+				"tags": ["TodoApp"],
+				"operationId": "DeleteTodoItem",
+				"consumes": ["application/json-patch+json", "application/json", "text/json", "application/*+json"],
+				"produces": ["text/plain", "application/json", "text/json"],
+				"parameters": [{ "name": "request", "in": "body", "required": false, "schema": { "$ref": "#/definitions/DeleteTodoItemReq" } }],
+				"responses": { "200": { "description": "Success", "schema": { "type": "boolean" } } }
+			}
+		},
+		"/TodoApp/AddTaskItem": {
+			"post": {
+				"tags": ["TodoApp"],
+				"operationId": "AddTaskItem",
+				"consumes": ["application/json-patch+json", "application/json", "text/json", "application/*+json"],
+				"produces": ["text/plain", "application/json", "text/json"],
+				"parameters": [{ "name": "request", "in": "body", "required": false, "schema": { "$ref": "#/definitions/AddTaskItemReq" } }],
+				"responses": { "200": { "description": "Success", "schema": { "type": "boolean" } } }
+			}
+		},
+		"/TodoApp/UpdateTaskItem": {
+			"put": {
+				"tags": ["TodoApp"],
+				"operationId": "UpdateTaskItem",
+				"consumes": ["application/json-patch+json", "application/json", "text/json", "application/*+json"],
+				"produces": ["text/plain", "application/json", "text/json"],
+				"parameters": [{ "name": "request", "in": "body", "required": false, "schema": { "$ref": "#/definitions/UpdateTaskItemReq" } }],
+				"responses": { "200": { "description": "Success", "schema": { "type": "boolean" } } }
+			}
+		},
+		"/TodoApp/UpdateTaskItemStatus": {
+			"patch": {
+				"tags": ["TodoApp"],
+				"operationId": "UpdateTaskItemStatus",
+				"consumes": ["application/json-patch+json", "application/json", "text/json", "application/*+json"],
+				"produces": ["text/plain", "application/json", "text/json"],
+				"parameters": [{ "name": "request", "in": "body", "required": false, "schema": { "$ref": "#/definitions/UpdateTaskItemStatusReq" } }],
+				"responses": { "200": { "description": "Success", "schema": { "type": "boolean" } } }
+			}
+		},
+		"/TodoApp/DeleteTaskItem": {
+			"delete": {
+				"tags": ["TodoApp"],
+				"operationId": "DeleteTaskItem",
+				"consumes": ["application/json-patch+json", "application/json", "text/json", "application/*+json"],
+				"produces": ["text/plain", "application/json", "text/json"],
+				"parameters": [{ "name": "request", "in": "body", "required": false, "schema": { "$ref": "#/definitions/DeleteTaskItemReq" } }],
+				"responses": { "200": { "description": "Success", "schema": { "type": "boolean" } } }
+			}
+		}
+	},
+	"definitions": {
+		"TodoItem": {
+			"type": "object",
+			"properties": {
+				"id": { "format": "uuid", "type": "string" },
+				"title": { "type": "string" },
+				"description": { "type": "string" },
+				"dueDate": { "format": "date-time", "type": "string" },
+				"status": { "format": "int32", "enum": [1, 2], "type": "integer" },
+				"subTasks": { "uniqueItems": false, "type": "array", "items": { "$ref": "#/definitions/TaskItem" } }
+			}
+		},
+		"TaskItem": {
+			"type": "object",
+			"properties": {
+				"id": { "format": "uuid", "type": "string" },
+				"title": { "type": "string" },
+				"status": { "format": "int32", "enum": [1, 2], "type": "integer" }
+			}
+		},
+		"AddTodoItemReq": {
+			"type": "object",
+			"properties": {
+				"title": { "type": "string" },
+				"description": { "type": "string" },
+				"dueDate": { "format": "date-time", "type": "string" },
+				"status": { "format": "int32", "enum": [1, 2], "type": "integer" },
+				"subTasks": { "uniqueItems": false, "type": "array", "items": { "$ref": "#/definitions/TaskItemReq" } }
+			}
+		},
+		"TaskItemReq": {
+			"type": "object",
+			"properties": { "title": { "type": "string" }, "status": { "format": "int32", "enum": [1, 2], "type": "integer" } }
+		},
+		"UpdateTodoItemReq": {
+			"type": "object",
+			"properties": {
+				"id": { "format": "uuid", "type": "string" },
+				"title": { "type": "string" },
+				"description": { "type": "string" },
+				"dueDate": { "format": "date-time", "type": "string" },
+				"status": { "format": "int32", "enum": [1, 2], "type": "integer" },
+				"subTasks": { "uniqueItems": false, "type": "array", "items": { "$ref": "#/definitions/TaskItemReq" } }
+			}
+		},
+		"UpdateTodoItemStatusReq": {
+			"type": "object",
+			"properties": { "id": { "format": "uuid", "type": "string" }, "status": { "format": "int32", "enum": [1, 2], "type": "integer" } }
+		},
+		"DeleteTodoItemReq": { "type": "object", "properties": { "id": { "format": "uuid", "type": "string" } } },
+		"AddTaskItemReq": {
+			"type": "object",
+			"properties": {
+				"todoItemId": { "format": "uuid", "type": "string" },
+				"title": { "type": "string" },
+				"status": { "format": "int32", "enum": [1, 2], "type": "integer" }
+			}
+		},
+		"UpdateTaskItemReq": {
+			"type": "object",
+			"properties": {
+				"todoItemId": { "format": "uuid", "type": "string" },
+				"taskItemId": { "format": "uuid", "type": "string" },
+				"title": { "type": "string" },
+				"status": { "format": "int32", "enum": [1, 2], "type": "integer" }
+			}
+		},
+		"UpdateTaskItemStatusReq": {
+			"type": "object",
+			"properties": {
+				"todoItemId": { "format": "uuid", "type": "string" },
+				"taskItemId": { "format": "uuid", "type": "string" },
+				"status": { "format": "int32", "enum": [1, 2], "type": "integer" }
+			}
+		},
+		"DeleteTaskItemReq": {
+			"type": "object",
+			"properties": { "taskItemId": { "format": "uuid", "type": "string" }, "todoItemId": { "format": "uuid", "type": "string" } }
+		}
+	}
+}
