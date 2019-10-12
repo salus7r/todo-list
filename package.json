@@ -2,6 +2,7 @@
 	"name": "todo-list",
 	"version": "1.0.0",
 	"private": true,
+	"homepage": "https://todolists7r.azurewebsites.net",
 	"dependencies": {
 		"@azure/ms-rest-js": "^2.0.4",
 		"@azure/ms-rest-nodeauth": "^2.0.5",
