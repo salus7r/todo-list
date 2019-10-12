@@ -2,6 +2,7 @@ import { createSelector } from "reselect";
 import { todoActions } from "../../modules/todos";
 import ApplicationState from "../../types";
 import { TodoItem } from "../../../autorestClients/TodoList/TodoList.Client/models";
+import { TodoManagement } from "../../modules/todos/types";
 
 const {
 	fetchTodos,
@@ -19,13 +20,13 @@ const {
 } = todoActions;
 
 export default class TodoListSelectors {
-	public static todoSelected = ({ todo }: ApplicationState) => todo;
+	public static todoSelected = ({ todos }: ApplicationState) => todos;
 
 	static todoListSelectors() {
 		return createSelector(
 			this.todoSelected,
-			(todo): ITodoListSelectorProps => {
-				return { ...todo };
+			(todos): ITodoListSelectorProps => {
+				return { ...todos };
 			}
 		);
 	}
@@ -44,6 +45,24 @@ export default class TodoListSelectors {
 			updateStatusTodoTaskItem,
 			updateTodoItem,
 			updateTodoTaskItem
+		};
+	}
+
+	public static todoListingSelectors() {
+		return createSelector(
+			this.todoSelected,
+			(todos): ITodoListingSelectorProps => {
+				return { todos };
+			}
+		);
+	}
+
+	static todoListingDispatchers(): ITodoListingDispatchers {
+		return {
+			fetchTodos,
+			deleteTodoItem,
+			selectTodo,
+			updateStatusTodoItem
 		};
 	}
 }
@@ -70,3 +89,16 @@ type ITodoListDispatchers = {
 };
 
 export type ITodoListStateProps = ITodoListSelectorProps & ITodoListDispatchers;
+
+type ITodoListingSelectorProps = {
+	todos: TodoManagement;
+};
+
+type ITodoListingDispatchers = {
+	fetchTodos: typeof fetchTodos;
+	deleteTodoItem: typeof deleteTodoItem;
+	selectTodo: typeof selectTodo;
+	updateStatusTodoItem: typeof updateStatusTodoItem;
+};
+
+export type ITodoListingStateProps = ITodoListingSelectorProps & ITodoListingDispatchers;

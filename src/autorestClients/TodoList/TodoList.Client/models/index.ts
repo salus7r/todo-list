@@ -210,12 +210,7 @@ export type GetTodoListResponse = Array<TodoItem> & {
 /**
  * Contains response data for the addTodoItem operation.
  */
-export type AddTodoItemResponse = {
-  /**
-   * The parsed response body.
-   */
-  body: boolean;
-
+export type AddTodoItemResponse = TodoItem & {
   /**
    * The underlying HTTP response.
    */
@@ -228,19 +223,14 @@ export type AddTodoItemResponse = {
       /**
        * The response body as parsed JSON or XML
        */
-      parsedBody: boolean;
+      parsedBody: TodoItem;
     };
 };
 
 /**
  * Contains response data for the updateTodoItem operation.
  */
-export type UpdateTodoItemResponse = {
-  /**
-   * The parsed response body.
-   */
-  body: boolean;
-
+export type UpdateTodoItemResponse = TodoItem & {
   /**
    * The underlying HTTP response.
    */
@@ -253,7 +243,7 @@ export type UpdateTodoItemResponse = {
       /**
        * The response body as parsed JSON or XML
        */
-      parsedBody: boolean;
+      parsedBody: TodoItem;
     };
 };
 
@@ -310,12 +300,7 @@ export type DeleteTodoItemResponse = {
 /**
  * Contains response data for the addTaskItem operation.
  */
-export type AddTaskItemResponse = {
-  /**
-   * The parsed response body.
-   */
-  body: boolean;
-
+export type AddTaskItemResponse = TaskItem & {
   /**
    * The underlying HTTP response.
    */
@@ -328,19 +313,14 @@ export type AddTaskItemResponse = {
       /**
        * The response body as parsed JSON or XML
        */
-      parsedBody: boolean;
+      parsedBody: TaskItem;
     };
 };
 
 /**
  * Contains response data for the updateTaskItem operation.
  */
-export type UpdateTaskItemResponse = {
-  /**
-   * The parsed response body.
-   */
-  body: boolean;
-
+export type UpdateTaskItemResponse = TaskItem & {
   /**
    * The underlying HTTP response.
    */
@@ -353,7 +333,7 @@ export type UpdateTaskItemResponse = {
       /**
        * The response body as parsed JSON or XML
        */
-      parsedBody: boolean;
+      parsedBody: TaskItem;
     };
 };
 

@@ -7,11 +7,10 @@ import {
 	UpdateTaskItemReq,
 	UpdateTaskItemStatusReq,
 	DeleteTaskItemReq,
-	AddTodoItemResponse
-} from "./../../../autorestClients/TodoList/TodoList.Client/models/index";
+	TodoItem
+} from "./../../../autorestClients/TodoList/TodoList.Client/models";
 import { ImmerReducer } from "immer-reducer";
-import { TodoManagement, StatusType, FilterType } from "./types";
-import { TodoItem, TaskItem } from "../../../autorestClients/TodoList/TodoList.Client/models";
+import { TodoManagement, FilterType, StatusType } from "./types";
 
 const initialState: TodoManagement = {
 	loading: false,
@@ -43,7 +42,7 @@ class TodosReducer extends ImmerReducer<TodoManagement> {
 		this.draftState.todoItemSelected = null;
 	}
 
-	fetchTodos(_filterType?: FilterType) {
+	fetchTodos(_filterType: FilterType) {
 		this.todoLoading(true);
 	}
 
@@ -60,14 +59,13 @@ class TodosReducer extends ImmerReducer<TodoManagement> {
 		this.todoLoading(true);
 	}
 
-	getTodoItemsAgain(_res: AddTodoItemResponse) {
-		if (_res.body) {
-			var filterType = this.draftState.filterOptionSelected || initialState.filterOptionSelected;
-			this.fetchTodos();
+	updateTodoList(_res: TodoItem, _haveError: boolean) {
+		if (!_haveError) {
+			this.draftState.todoList = [_res, ...this.draftState.todoList];
 		} else {
 			this.setError(true);
-			this.todoLoading(false);
 		}
+		this.todoLoading(false);
 	}
 
 	updateTodoItem(_req: UpdateTodoItemReq) {
@@ -78,8 +76,32 @@ class TodosReducer extends ImmerReducer<TodoManagement> {
 		this.todoLoading(true);
 	}
 
+	updateTodoListAfterStatusUpdate(_res: boolean, _haveError: boolean, _req: UpdateTodoItemStatusReq) {
+		if (!_haveError) {
+			this.draftState.todoList = this.draftState.todoList.map(item => {
+				if (item.id == _req.id) {
+					item.status = _req.status;
+				}
+
+				return item;
+			});
+		} else {
+			this.setError(true);
+		}
+		this.todoLoading(false);
+	}
+
 	deleteTodoItem(_req: DeleteTodoItemReq) {
 		this.todoLoading(true);
+	}
+
+	updateTodoListAfterDelete(_res: boolean, _haveError: boolean, _req: UpdateTodoItemStatusReq) {
+		if (!_haveError) {
+			this.draftState.todoList = this.draftState.todoList.filter(item => item.id != _req.id);
+		} else {
+			this.setError(true);
+		}
+		this.todoLoading(false);
 	}
 
 	addTodoTaskItem(_req: AddTaskItemReq) {

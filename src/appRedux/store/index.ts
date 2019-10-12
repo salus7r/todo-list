@@ -14,6 +14,6 @@ export default function configureStore(initialState?: any) {
 	if (!rootTask.isRunning()) {
 		console.error("Saga Failed to Run - ", rootTask.error());
 	}
-	
+
 	return store;
 }

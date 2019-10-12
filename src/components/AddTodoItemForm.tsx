@@ -30,7 +30,7 @@ class AddTodoItemForm extends Component<IProps> {
 		const { getFieldDecorator } = form;
 
 		return (
-			<Form layout={"inline"} onSubmit={this.handleSubmit} className="add-task-form">
+			<Form layout={"inline"} onSubmit={this.handleSubmit} className="add-task-form margin-bottom-20px">
 				<Form.Item>
 					{getFieldDecorator("title", {
 						rules: [{ required: true, message: "Title is required in order to create a task" }]

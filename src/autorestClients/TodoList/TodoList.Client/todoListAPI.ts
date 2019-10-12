@@ -54,13 +54,13 @@ class TodoListAPI extends TodoListAPIContext {
   /**
    * @param callback The callback
    */
-  addTodoItem(callback: msRest.ServiceCallback<boolean>): void;
+  addTodoItem(callback: msRest.ServiceCallback<Models.TodoItem>): void;
   /**
    * @param options The optional parameters
    * @param callback The callback
    */
-  addTodoItem(options: Models.TodoListAPIAddTodoItemOptionalParams, callback: msRest.ServiceCallback<boolean>): void;
-  addTodoItem(options?: Models.TodoListAPIAddTodoItemOptionalParams | msRest.ServiceCallback<boolean>, callback?: msRest.ServiceCallback<boolean>): Promise<Models.AddTodoItemResponse> {
+  addTodoItem(options: Models.TodoListAPIAddTodoItemOptionalParams, callback: msRest.ServiceCallback<Models.TodoItem>): void;
+  addTodoItem(options?: Models.TodoListAPIAddTodoItemOptionalParams | msRest.ServiceCallback<Models.TodoItem>, callback?: msRest.ServiceCallback<Models.TodoItem>): Promise<Models.AddTodoItemResponse> {
     return this.sendOperationRequest(
       {
         options
@@ -77,13 +77,13 @@ class TodoListAPI extends TodoListAPIContext {
   /**
    * @param callback The callback
    */
-  updateTodoItem(callback: msRest.ServiceCallback<boolean>): void;
+  updateTodoItem(callback: msRest.ServiceCallback<Models.TodoItem>): void;
   /**
    * @param options The optional parameters
    * @param callback The callback
    */
-  updateTodoItem(options: Models.TodoListAPIUpdateTodoItemOptionalParams, callback: msRest.ServiceCallback<boolean>): void;
-  updateTodoItem(options?: Models.TodoListAPIUpdateTodoItemOptionalParams | msRest.ServiceCallback<boolean>, callback?: msRest.ServiceCallback<boolean>): Promise<Models.UpdateTodoItemResponse> {
+  updateTodoItem(options: Models.TodoListAPIUpdateTodoItemOptionalParams, callback: msRest.ServiceCallback<Models.TodoItem>): void;
+  updateTodoItem(options?: Models.TodoListAPIUpdateTodoItemOptionalParams | msRest.ServiceCallback<Models.TodoItem>, callback?: msRest.ServiceCallback<Models.TodoItem>): Promise<Models.UpdateTodoItemResponse> {
     return this.sendOperationRequest(
       {
         options
@@ -146,13 +146,13 @@ class TodoListAPI extends TodoListAPIContext {
   /**
    * @param callback The callback
    */
-  addTaskItem(callback: msRest.ServiceCallback<boolean>): void;
+  addTaskItem(callback: msRest.ServiceCallback<Models.TaskItem>): void;
   /**
    * @param options The optional parameters
    * @param callback The callback
    */
-  addTaskItem(options: Models.TodoListAPIAddTaskItemOptionalParams, callback: msRest.ServiceCallback<boolean>): void;
-  addTaskItem(options?: Models.TodoListAPIAddTaskItemOptionalParams | msRest.ServiceCallback<boolean>, callback?: msRest.ServiceCallback<boolean>): Promise<Models.AddTaskItemResponse> {
+  addTaskItem(options: Models.TodoListAPIAddTaskItemOptionalParams, callback: msRest.ServiceCallback<Models.TaskItem>): void;
+  addTaskItem(options?: Models.TodoListAPIAddTaskItemOptionalParams | msRest.ServiceCallback<Models.TaskItem>, callback?: msRest.ServiceCallback<Models.TaskItem>): Promise<Models.AddTaskItemResponse> {
     return this.sendOperationRequest(
       {
         options
@@ -169,13 +169,13 @@ class TodoListAPI extends TodoListAPIContext {
   /**
    * @param callback The callback
    */
-  updateTaskItem(callback: msRest.ServiceCallback<boolean>): void;
+  updateTaskItem(callback: msRest.ServiceCallback<Models.TaskItem>): void;
   /**
    * @param options The optional parameters
    * @param callback The callback
    */
-  updateTaskItem(options: Models.TodoListAPIUpdateTaskItemOptionalParams, callback: msRest.ServiceCallback<boolean>): void;
-  updateTaskItem(options?: Models.TodoListAPIUpdateTaskItemOptionalParams | msRest.ServiceCallback<boolean>, callback?: msRest.ServiceCallback<boolean>): Promise<Models.UpdateTaskItemResponse> {
+  updateTaskItem(options: Models.TodoListAPIUpdateTaskItemOptionalParams, callback: msRest.ServiceCallback<Models.TaskItem>): void;
+  updateTaskItem(options?: Models.TodoListAPIUpdateTaskItemOptionalParams | msRest.ServiceCallback<Models.TaskItem>, callback?: msRest.ServiceCallback<Models.TaskItem>): Promise<Models.UpdateTaskItemResponse> {
     return this.sendOperationRequest(
       {
         options
@@ -272,12 +272,7 @@ const addTodoItemOperationSpec: msRest.OperationSpec = {
   },
   responses: {
     200: {
-      bodyMapper: {
-        serializedName: "parsedResponse",
-        type: {
-          name: "Boolean"
-        }
-      }
+      bodyMapper: Mappers.TodoItem
     },
     default: {}
   },
@@ -296,12 +291,7 @@ const updateTodoItemOperationSpec: msRest.OperationSpec = {
   },
   responses: {
     200: {
-      bodyMapper: {
-        serializedName: "parsedResponse",
-        type: {
-          name: "Boolean"
-        }
-      }
+      bodyMapper: Mappers.TodoItem
     },
     default: {}
   },
@@ -368,12 +358,7 @@ const addTaskItemOperationSpec: msRest.OperationSpec = {
   },
   responses: {
     200: {
-      bodyMapper: {
-        serializedName: "parsedResponse",
-        type: {
-          name: "Boolean"
-        }
-      }
+      bodyMapper: Mappers.TaskItem
     },
     default: {}
   },
@@ -392,12 +377,7 @@ const updateTaskItemOperationSpec: msRest.OperationSpec = {
   },
   responses: {
     200: {
-      bodyMapper: {
-        serializedName: "parsedResponse",
-        type: {
-          name: "Boolean"
-        }
-      }
+      bodyMapper: Mappers.TaskItem
     },
     default: {}
   },

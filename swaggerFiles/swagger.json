@@ -23,7 +23,7 @@
 				"consumes": ["application/json-patch+json", "application/json", "text/json", "application/*+json"],
 				"produces": ["text/plain", "application/json", "text/json"],
 				"parameters": [{ "name": "request", "in": "body", "required": false, "schema": { "$ref": "#/definitions/AddTodoItemReq" } }],
-				"responses": { "200": { "description": "Success", "schema": { "type": "boolean" } } }
+				"responses": { "200": { "description": "Success", "schema": { "$ref": "#/definitions/TodoItem" } } }
 			}
 		},
 		"/TodoApp/UpdateTodoItem": {
@@ -33,7 +33,7 @@
 				"consumes": ["application/json-patch+json", "application/json", "text/json", "application/*+json"],
 				"produces": ["text/plain", "application/json", "text/json"],
 				"parameters": [{ "name": "request", "in": "body", "required": false, "schema": { "$ref": "#/definitions/UpdateTodoItemReq" } }],
-				"responses": { "200": { "description": "Success", "schema": { "type": "boolean" } } }
+				"responses": { "200": { "description": "Success", "schema": { "$ref": "#/definitions/TodoItem" } } }
 			}
 		},
 		"/TodoApp/UpdateTodoItemStatus": {
@@ -63,7 +63,7 @@
 				"consumes": ["application/json-patch+json", "application/json", "text/json", "application/*+json"],
 				"produces": ["text/plain", "application/json", "text/json"],
 				"parameters": [{ "name": "request", "in": "body", "required": false, "schema": { "$ref": "#/definitions/AddTaskItemReq" } }],
-				"responses": { "200": { "description": "Success", "schema": { "type": "boolean" } } }
+				"responses": { "200": { "description": "Success", "schema": { "$ref": "#/definitions/TaskItem" } } }
 			}
 		},
 		"/TodoApp/UpdateTaskItem": {
@@ -73,7 +73,7 @@
 				"consumes": ["application/json-patch+json", "application/json", "text/json", "application/*+json"],
 				"produces": ["text/plain", "application/json", "text/json"],
 				"parameters": [{ "name": "request", "in": "body", "required": false, "schema": { "$ref": "#/definitions/UpdateTaskItemReq" } }],
-				"responses": { "200": { "description": "Success", "schema": { "type": "boolean" } } }
+				"responses": { "200": { "description": "Success", "schema": { "$ref": "#/definitions/TaskItem" } } }
 			}
 		},
 		"/TodoApp/UpdateTaskItemStatus": {
