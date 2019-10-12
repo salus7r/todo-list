@@ -1,21 +1,9 @@
+import { TodoItem } from "../../../autorestClients/TodoList/TodoList.Client/models";
+
 export interface TodoManagement {
 	loading: boolean;
 	todoList: Array<TodoItem>;
 	todoItemSelected: TodoItem;
-}
-
-export interface TodoItem {
-	id?: number;
-	title: string;
-	description?: string;
-	status: StatusType;
-	subTasks: Array<TaskItem>;
-}
-
-export interface TaskItem {
-	id?: number;
-	title: string;
-	status: StatusType;
 }
 
 export interface TodoCriteria {
@@ -23,12 +11,12 @@ export interface TodoCriteria {
 }
 
 export enum FilterType {
-	all,
-	active,
-	completed
+	All = 1,
+	Active = 2,
+	Completed = 3
 }
 
 export enum StatusType {
-	inCompleted,
-	completed
+	Active = 1,
+	Completed = 2
 }
