@@ -52,7 +52,7 @@ const ViewEditTaskModal = Form.create<IViewEditTaskFormProps>({ name: "form_in_m
 							)}
 						</Form.Item>
 					</Form>
-					<TasksList subTasks={itemData.subTasks} />
+					<TasksList subTasks={itemData.subTasks} todoItemId={itemData.id} />
 				</Modal>
 			);
 		}

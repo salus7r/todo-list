@@ -12,6 +12,7 @@ const { deleteTodoTaskItem, updateTodoTaskItem, updateStatusTodoTaskItem } = tod
 
 interface IProps {
 	item: TaskItem;
+	todoItemId: string;
 	deleteTodoTaskItem: typeof deleteTodoTaskItem;
 	updateTodoTaskItem: typeof updateTodoTaskItem;
 	updateStatusTodoTaskItem: typeof updateStatusTodoTaskItem;

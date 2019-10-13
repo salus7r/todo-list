@@ -10,6 +10,7 @@ const { updateStatusTodoItem, fetchTodos, updateStatusTodoTaskItem } = todoActio
 interface IProps {
 	filterType?: FilterType;
 	isTask?: boolean;
+	todoItemId?: string;
 	item: TodoItem | TaskItem;
 
 	updateStatusTodoTaskItem?: typeof updateStatusTodoTaskItem;
@@ -18,16 +19,20 @@ interface IProps {
 }
 
 const TaskActive: FC<IProps> = props => {
-	const { updateStatusTodoItem, item, fetchTodos, filterType } = props;
+	const { updateStatusTodoItem, item, fetchTodos, filterType, todoItemId, isTask } = props;
 
 	function activeTask() {
-		updateStatusTodoItem({ id: item.id, status: StatusType.Active });
-		setTimeout(function() {
-			if (filterType !== FilterType.All) {
-				fetchTodos(filterType);
-			}
-			Utils.openNotification("success", "Marked Active", "Task Marked as Active Successfully");
-		}, 500);
+		if (isTask) {
+			updateStatusTodoTaskItem({ todoItemId: todoItemId, taskItemId: item.id, status: StatusType.Active });
+		} else {
+			updateStatusTodoItem({ id: item.id, status: StatusType.Active });
+			setTimeout(function() {
+				if (filterType !== FilterType.All) {
+					fetchTodos(filterType);
+				}
+			}, 500);
+		}
+		Utils.openNotification("success", "Marked Active", "Task Marked as Active Successfully");
 	}
 
 	return (

@@ -2,12 +2,11 @@ import React, { Component, Fragment } from "react";
 import { List } from "antd";
 import { connect } from "react-redux";
 import TodoListSelectors, { ITaskListingStateProps } from "../appRedux/store/selectors/todoListSelectors";
-import ListItem from "./ListItem";
-import ApplicationState from "../appRedux/types";
-import Utils from "../utils/Utils";
 import TaskListItem from "./TaskListItem";
 
-interface IProps extends ITaskListingStateProps {}
+interface IProps extends ITaskListingStateProps {
+	todoItemId: string;
+}
 
 interface IState {}
 
@@ -17,7 +16,7 @@ class TasksList extends Component<IProps, IState> {
 	}
 
 	render() {
-		const { subTasks, deleteTodoTaskItem, updateTodoTaskItem, updateStatusTodoTaskItem } = this.props;
+		const { subTasks, deleteTodoTaskItem, updateTodoTaskItem, updateStatusTodoTaskItem, todoItemId } = this.props;
 
 		return (
 			<Fragment>
@@ -29,6 +28,7 @@ class TasksList extends Component<IProps, IState> {
 					renderItem={item => (
 						<TaskListItem
 							key={item.id}
+							todoItemId={todoItemId}
 							deleteTodoTaskItem={deleteTodoTaskItem}
 							updateTodoTaskItem={updateTodoTaskItem}
 							updateStatusTodoTaskItem={updateStatusTodoTaskItem}

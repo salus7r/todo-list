@@ -6,7 +6,7 @@ class Utils {
 			placement: "bottomLeft",
 			message: message,
 			description: description,
-			duration: 10
+			duration: 3
 		});
 	};
 

@@ -10,6 +10,7 @@ const { deleteTodoItem, fetchTodos, deleteTodoTaskItem } = todoActions;
 interface IProps {
 	filterType?: FilterType;
 	isTask?: boolean;
+	todoItemId?: string;
 	item: TodoItem | TaskItem;
 
 	deleteTodoTaskItem?: typeof deleteTodoTaskItem;
@@ -18,16 +19,20 @@ interface IProps {
 }
 
 const DeleteTask: FC<IProps> = props => {
-	const { deleteTodoItem, item, fetchTodos, filterType } = props;
+	const { deleteTodoItem, item, fetchTodos, filterType, isTask, todoItemId } = props;
 
 	function deleteTask() {
-		deleteTodoItem({ id: item.id });
-		setTimeout(function() {
-			if (filterType !== FilterType.All) {
-				fetchTodos(filterType);
-			}
-			Utils.openNotification("success", "Task Deleted", "Task Deleted Successfully");
-		}, 500);
+		if (isTask) {
+			deleteTodoTaskItem({ todoItemId: todoItemId, taskItemId: item.id });
+		} else {
+			deleteTodoItem({ id: item.id });
+			setTimeout(function() {
+				if (filterType !== FilterType.All) {
+					fetchTodos(filterType);
+				}
+			}, 500);
+		}
+		Utils.openNotification("success", "Task Deleted", "Task Deleted Successfully");
 	}
 
 	return (
