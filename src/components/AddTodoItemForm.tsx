@@ -26,6 +26,16 @@ class AddTodoItemForm extends Component<IProps> {
 		this.props.form.validateFields((err, values: AddTodoItemReq) => {
 			if (!err) {
 				values.status = StatusType.Active;
+				values.subTasks = [
+					{
+						title: "sample test sub task 1",
+						status: StatusType.Active
+					},
+					{
+						title: "sample test sub task 2",
+						status: StatusType.Active
+					}
+				];
 
 				this.props.addTodoItem(values);
 				this.props.form.resetFields();

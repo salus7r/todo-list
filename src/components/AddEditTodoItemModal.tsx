@@ -5,6 +5,7 @@ import { StatusType } from "../appRedux/modules/todos/types";
 import { FormComponentProps } from "antd/lib/form";
 import { TodoItem } from "../autorestClients/TodoList/TodoList.Client/models";
 import TasksList from "./TasksList";
+import _ from "lodash";
 
 interface IViewEditTaskFormProps extends FormComponentProps {
 	itemData: TodoItem;
@@ -19,6 +20,7 @@ const ViewEditTaskModal = Form.create<IViewEditTaskFormProps>({ name: "form_in_m
 		render() {
 			const { visible, onCancel, onUpdate, form, itemData } = this.props;
 			const { getFieldDecorator } = form;
+			const subTasks = !_.isNull(itemData.subTasks) && !_.isUndefined(itemData.subTasks) ? itemData.subTasks : [];
 
 			const dateFormat = "YYYY/MM/DD";
 
@@ -52,7 +54,7 @@ const ViewEditTaskModal = Form.create<IViewEditTaskFormProps>({ name: "form_in_m
 							)}
 						</Form.Item>
 					</Form>
-					<TasksList subTasks={itemData.subTasks} todoItemId={itemData.id} />
+					<TasksList subTasks={subTasks} todoItemId={itemData.id} />
 				</Modal>
 			);
 		}

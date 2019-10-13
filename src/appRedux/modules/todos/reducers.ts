@@ -122,7 +122,7 @@ class TodosReducer extends ImmerReducer<TodoManagement> {
 	}
 
 	updateStatusTodoTaskItem(_req: UpdateTaskItemStatusReq) {
-		debugger;
+		// debugger;
 		this.todoLoading(true);
 	}
 

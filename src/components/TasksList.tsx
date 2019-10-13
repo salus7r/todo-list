@@ -3,6 +3,7 @@ import { List } from "antd";
 import { connect } from "react-redux";
 import TodoListSelectors, { ITaskListingStateProps } from "../appRedux/store/selectors/todoListSelectors";
 import TaskListItem from "./TaskListItem";
+import _ from "lodash";
 
 interface IProps extends ITaskListingStateProps {
 	todoItemId: string;
@@ -12,7 +13,11 @@ interface IState {}
 
 class TasksList extends Component<IProps, IState> {
 	render() {
-		const { subTasks, deleteTodoTaskItem, updateTodoTaskItem, updateStatusTodoTaskItem, todoItemId } = this.props;
+		var { subTasks, deleteTodoTaskItem, updateTodoTaskItem, updateStatusTodoTaskItem, todoItemId } = this.props;
+
+		if (_.isUndefined(subTasks) || _.isNull(subTasks)) {
+			subTasks = [];
+		}
 
 		return (
 			<Fragment>

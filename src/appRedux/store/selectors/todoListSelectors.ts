@@ -109,7 +109,7 @@ type ITodoListingDispatchers = {
 export type ITodoListingStateProps = ITodoListingSelectorProps & ITodoListingDispatchers;
 
 type ITaskListingSelectorProps = {
-	subTasks?: TaskItem[];
+	subTasks: TaskItem[];
 };
 
 type ITaskListingDispatchers = {
