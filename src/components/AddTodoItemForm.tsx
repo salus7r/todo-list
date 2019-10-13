@@ -4,15 +4,23 @@ import { FormComponentProps } from "antd/es/form";
 import { todoActions } from "../appRedux/modules/todos";
 import { AddTodoItemReq } from "../autorestClients/TodoList/TodoList.Client/models";
 import { StatusType } from "../appRedux/modules/todos/types";
+import Utils from "../utils/Utils";
 
 const { addTodoItem } = todoActions;
 
 interface IProps extends FormComponentProps {
 	loading: boolean;
+	apiError: boolean;
 	addTodoItem: typeof addTodoItem;
 }
 
 class AddTodoItemForm extends Component<IProps> {
+	componentDidUpdate(prevProps: IProps) {
+		if (prevProps.apiError !== this.props.apiError && this.props.apiError === true) {
+			Utils.openApiErrorNotification();
+		}
+	}
+
 	handleSubmit = e => {
 		e.preventDefault();
 		this.props.form.validateFields((err, values: AddTodoItemReq) => {
@@ -21,6 +29,7 @@ class AddTodoItemForm extends Component<IProps> {
 
 				this.props.addTodoItem(values);
 				this.props.form.resetFields();
+				Utils.openNotification("success", "New Todo Item", "Task Added Successfully");
 			}
 		});
 	};

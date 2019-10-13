@@ -11,7 +11,6 @@ const {
 	addTodoItem,
 	deleteTodoItem,
 	deleteTodoTaskItem,
-	selectTodo,
 	setTodos,
 	updateStatusTodoItem,
 	updateStatusTodoTaskItem,
@@ -39,7 +38,6 @@ export default class TodoListSelectors {
 			addTodoItem,
 			deleteTodoItem,
 			deleteTodoTaskItem,
-			selectTodo,
 			setTodos,
 			updateStatusTodoItem,
 			updateStatusTodoTaskItem,
@@ -62,7 +60,6 @@ export default class TodoListSelectors {
 			fetchTodos,
 			deleteTodoItem,
 			updateTodoItem,
-			selectTodo,
 			updateStatusTodoItem
 		};
 	}
@@ -71,7 +68,7 @@ export default class TodoListSelectors {
 type ITodoListSelectorProps = {
 	loading: boolean;
 	todoList: Array<TodoItem>;
-	todoItemSelected: TodoItem;
+	apiError: boolean;
 };
 
 type ITodoListDispatchers = {
@@ -81,7 +78,6 @@ type ITodoListDispatchers = {
 	addTodoItem: typeof addTodoItem;
 	deleteTodoItem: typeof deleteTodoItem;
 	deleteTodoTaskItem: typeof deleteTodoTaskItem;
-	selectTodo: typeof selectTodo;
 	setTodos: typeof setTodos;
 	updateStatusTodoItem: typeof updateStatusTodoItem;
 	updateStatusTodoTaskItem: typeof updateStatusTodoTaskItem;
@@ -99,7 +95,6 @@ type ITodoListingDispatchers = {
 	fetchTodos: typeof fetchTodos;
 	deleteTodoItem: typeof deleteTodoItem;
 	updateTodoItem: typeof updateTodoItem;
-	selectTodo: typeof selectTodo;
 	updateStatusTodoItem: typeof updateStatusTodoItem;
 };
 

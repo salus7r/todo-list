@@ -15,7 +15,6 @@ import { TodoManagement, FilterType, StatusType } from "./types";
 const initialState: TodoManagement = {
 	loading: false,
 	todoList: [],
-	todoItemSelected: null,
 	filterOptionSelected: FilterType.All,
 	apiError: false
 };
@@ -39,7 +38,6 @@ class TodosReducer extends ImmerReducer<TodoManagement> {
 
 	clearTodos() {
 		this.draftState.todoList = initialState.todoList;
-		this.draftState.todoItemSelected = null;
 	}
 
 	fetchTodos(_filterType: FilterType) {
@@ -49,10 +47,6 @@ class TodosReducer extends ImmerReducer<TodoManagement> {
 	setTodos(response: Array<TodoItem>) {
 		this.draftState.todoList = response;
 		this.todoLoading(false);
-	}
-
-	selectTodo(todo: TodoItem) {
-		this.draftState.todoItemSelected = todo;
 	}
 
 	addTodoItem(_req: AddTodoItemReq) {
@@ -79,7 +73,7 @@ class TodosReducer extends ImmerReducer<TodoManagement> {
 	updateTodoListAfterStatusUpdate(_res: boolean, _haveError: boolean, _req: UpdateTodoItemStatusReq) {
 		if (!_haveError) {
 			this.draftState.todoList = this.draftState.todoList.map(item => {
-				if (item.id == _req.id) {
+				if (item.id === _req.id) {
 					item.status = _req.status;
 				}
 
@@ -97,7 +91,7 @@ class TodosReducer extends ImmerReducer<TodoManagement> {
 
 	updateTodoListAfterDelete(_res: boolean, _haveError: boolean, _req: UpdateTodoItemStatusReq) {
 		if (!_haveError) {
-			this.draftState.todoList = this.draftState.todoList.filter(item => item.id != _req.id);
+			this.draftState.todoList = this.draftState.todoList.filter(item => item.id !== _req.id);
 		} else {
 			this.setError(true);
 		}
@@ -115,7 +109,7 @@ class TodosReducer extends ImmerReducer<TodoManagement> {
 	updateTodoListAfterStatusTaskUpdate(_res: TodoItem, _haveError: boolean) {
 		if (!_haveError) {
 			this.draftState.todoList = this.draftState.todoList.map(item => {
-				if (item.id == _res.id) {
+				if (item.id === _res.id) {
 					item = _res;
 				}
 

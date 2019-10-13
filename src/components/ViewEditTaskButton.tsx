@@ -5,6 +5,7 @@ import React, { Component, Fragment } from "react";
 import { Tooltip, Button, Form, Modal, Input, Radio, DatePicker } from "antd";
 import { FormComponentProps } from "antd/lib/form";
 import moment from "moment";
+import Utils from "../utils/Utils";
 
 const { updateTodoItem, fetchTodos } = todoActions;
 
@@ -43,6 +44,7 @@ class ViewEditTask extends Component<IProps> {
 
 			updateTodoItem(values);
 			setTimeout(function() {
+				Utils.openNotification("success", "Task Updated", "Task Updated Successfully");
 				fetchTodos(filterType);
 			}, 500);
 			form.resetFields();

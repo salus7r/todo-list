@@ -1,13 +1,11 @@
 import React, { Component, Fragment } from "react";
 import { List, Spin, Radio } from "antd";
-import { TodoItem } from "../autorestClients/TodoList/TodoList.Client/models";
-import { todoActions } from "../appRedux/modules/todos";
-import _ from "lodash";
 import { FilterType } from "../appRedux/modules/todos/types";
 import { connect } from "react-redux";
 import TodoListSelectors, { ITodoListingStateProps } from "../appRedux/store/selectors/todoListSelectors";
 import ListItem from "./ListItem";
 import ApplicationState from "../appRedux/types";
+import Utils from "../utils/Utils";
 
 interface IProps extends ITodoListingStateProps {}
 
@@ -26,6 +24,12 @@ class TasksList extends Component<IProps, IState> {
 
 	componentDidMount() {
 		this.fetchTodoList();
+	}
+
+	componentDidUpdate(prevProps: IProps) {
+		if (prevProps.todos.apiError !== this.props.todos.apiError && this.props.todos.apiError === true) {
+			Utils.openApiErrorNotification();
+		}
 	}
 
 	setFilterType = (filterType: FilterType) => {

@@ -3,6 +3,7 @@ import { FilterType, StatusType } from "../appRedux/modules/todos/types";
 import { TodoItem } from "../autorestClients/TodoList/TodoList.Client/models";
 import React, { FC } from "react";
 import { Tooltip, Icon } from "antd";
+import Utils from "../utils/Utils";
 
 const { updateStatusTodoItem, fetchTodos } = todoActions;
 
@@ -22,6 +23,7 @@ const TaskComplete: FC<IProps> = props => {
 			if (filterType !== FilterType.All) {
 				fetchTodos(filterType);
 			}
+			Utils.openNotification("success", "Marked Completed", "Task Marked as Completed Successfully");
 		}, 500);
 	}
 

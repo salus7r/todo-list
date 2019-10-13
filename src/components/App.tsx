@@ -10,12 +10,12 @@ import "../styles/App.css";
 interface IProps extends ITodoListStateProps {}
 
 const App: React.FC<IProps> = props => {
-	const { loading, addTodoItem } = props;
+	const { loading, apiError, addTodoItem } = props;
 
 	return (
 		<div className="App">
 			<h1>Todo List</h1>
-			<AddTodoItemForm loading={loading} addTodoItem={addTodoItem} />
+			<AddTodoItemForm loading={loading} addTodoItem={addTodoItem} apiError={apiError} />
 			<TasksList />
 		</div>
 	);

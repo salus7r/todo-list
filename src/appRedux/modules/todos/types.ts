@@ -3,7 +3,6 @@ import { TodoItem } from "../../../autorestClients/TodoList/TodoList.Client/mode
 export interface TodoManagement {
 	loading: boolean;
 	todoList: Array<TodoItem>;
-	todoItemSelected: TodoItem;
 	filterOptionSelected: FilterType;
 	apiError: boolean;
 }

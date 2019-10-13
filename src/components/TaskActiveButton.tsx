@@ -3,6 +3,7 @@ import { TodoItem } from "../autorestClients/TodoList/TodoList.Client/models";
 import React, { FC } from "react";
 import { Tooltip, Icon } from "antd";
 import { todoActions } from "../appRedux/modules/todos";
+import Utils from "../utils/Utils";
 
 const { updateStatusTodoItem, fetchTodos } = todoActions;
 
@@ -22,6 +23,7 @@ const TaskActive: FC<IProps> = props => {
 			if (filterType !== FilterType.All) {
 				fetchTodos(filterType);
 			}
+			Utils.openNotification("success", "Marked Active", "Task Marked as Active Successfully");
 		}, 500);
 	}
 
