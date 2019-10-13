@@ -20,7 +20,7 @@ interface IProps {
 	fetchTodos: typeof fetchTodos;
 }
 
-const App: FC<IProps> = props => {
+const ListItem: FC<IProps> = props => {
 	const { item } = props;
 	const dueDate = !!item.dueDate ? item.dueDate.toDateString() : "";
 	const strikeThroughClass = item.status === StatusType.Completed ? "text-line-though" : "";
@@ -34,10 +34,10 @@ const App: FC<IProps> = props => {
 			]}
 		>
 			<Row className="width-100">
-				<Col span={12} className={strikeThroughClass}>
+				<Col span={16} className={strikeThroughClass}>
 					{item.title}
 				</Col>
-				<Col span={12}>
+				<Col span={8}>
 					{!_.isEmpty(dueDate) && (
 						<Tag color="blue" className={"float-right margin-right-20px"}>
 							<div className={strikeThroughClass}>{dueDate}</div>
@@ -49,4 +49,4 @@ const App: FC<IProps> = props => {
 	);
 };
 
-export default App;
+export default ListItem;

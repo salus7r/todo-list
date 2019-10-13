@@ -4,6 +4,7 @@ import moment from "moment";
 import { StatusType } from "../appRedux/modules/todos/types";
 import { FormComponentProps } from "antd/lib/form";
 import { TodoItem } from "../autorestClients/TodoList/TodoList.Client/models";
+import TasksList from "./TasksList";
 
 interface IViewEditTaskFormProps extends FormComponentProps {
 	itemData: TodoItem;
@@ -22,8 +23,8 @@ const ViewEditTaskModal = Form.create<IViewEditTaskFormProps>({ name: "form_in_m
 			const dateFormat = "YYYY/MM/DD";
 
 			return (
-				<Modal width={800} visible={visible} title="View / Edit Task" okText="Update" onCancel={onCancel} onOk={onUpdate}>
-					<Form layout="vertical">
+				<Modal width={900} visible={visible} title="View / Edit Task" okText="Update" onCancel={onCancel} onOk={onUpdate}>
+					<Form layout="vertical" className={"margin-bottom-20x"}>
 						<Form.Item label="Title">
 							{getFieldDecorator("title", {
 								rules: [{ required: true, message: "Please input the title of collection!" }],
@@ -51,6 +52,7 @@ const ViewEditTaskModal = Form.create<IViewEditTaskFormProps>({ name: "form_in_m
 							)}
 						</Form.Item>
 					</Form>
+					<TasksList subTasks={itemData.subTasks} />
 				</Modal>
 			);
 		}

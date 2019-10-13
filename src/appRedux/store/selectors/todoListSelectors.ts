@@ -1,7 +1,7 @@
 import { createSelector } from "reselect";
 import { todoActions } from "../../modules/todos";
 import ApplicationState from "../../types";
-import { TodoItem } from "../../../autorestClients/TodoList/TodoList.Client/models";
+import { TodoItem, TaskItem } from "../../../autorestClients/TodoList/TodoList.Client/models";
 import { TodoManagement } from "../../modules/todos/types";
 
 const {
@@ -63,6 +63,14 @@ export default class TodoListSelectors {
 			updateStatusTodoItem
 		};
 	}
+
+	static taskListingDispatchers(): ITaskListingDispatchers {
+		return {
+			deleteTodoTaskItem,
+			updateTodoTaskItem,
+			updateStatusTodoTaskItem
+		};
+	}
 }
 
 type ITodoListSelectorProps = {
@@ -99,3 +107,15 @@ type ITodoListingDispatchers = {
 };
 
 export type ITodoListingStateProps = ITodoListingSelectorProps & ITodoListingDispatchers;
+
+type ITaskListingSelectorProps = {
+	subTasks?: TaskItem[];
+};
+
+type ITaskListingDispatchers = {
+	deleteTodoTaskItem: typeof deleteTodoTaskItem;
+	updateTodoTaskItem: typeof updateTodoTaskItem;
+	updateStatusTodoTaskItem: typeof updateStatusTodoTaskItem;
+};
+
+export type ITaskListingStateProps = ITaskListingSelectorProps & ITaskListingDispatchers;

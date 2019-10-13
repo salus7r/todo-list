@@ -1,17 +1,20 @@
 import { FilterType, StatusType } from "../appRedux/modules/todos/types";
-import { TodoItem } from "../autorestClients/TodoList/TodoList.Client/models";
+import { TodoItem, TaskItem } from "../autorestClients/TodoList/TodoList.Client/models";
 import React, { FC } from "react";
 import { Tooltip, Icon } from "antd";
 import { todoActions } from "../appRedux/modules/todos";
 import Utils from "../utils/Utils";
 
-const { updateStatusTodoItem, fetchTodos } = todoActions;
+const { updateStatusTodoItem, fetchTodos, updateStatusTodoTaskItem } = todoActions;
 
 interface IProps {
-	filterType: FilterType;
-	item: TodoItem;
-	updateStatusTodoItem: typeof updateStatusTodoItem;
-	fetchTodos: typeof fetchTodos;
+	filterType?: FilterType;
+	isTask?: boolean;
+	item: TodoItem | TaskItem;
+
+	updateStatusTodoTaskItem?: typeof updateStatusTodoTaskItem;
+	updateStatusTodoItem?: typeof updateStatusTodoItem;
+	fetchTodos?: typeof fetchTodos;
 }
 
 const TaskActive: FC<IProps> = props => {

@@ -1,17 +1,20 @@
 import { todoActions } from "../appRedux/modules/todos";
 import { FilterType } from "../appRedux/modules/todos/types";
-import { TodoItem } from "../autorestClients/TodoList/TodoList.Client/models";
+import { TodoItem, TaskItem } from "../autorestClients/TodoList/TodoList.Client/models";
 import React, { FC } from "react";
 import { Tooltip, Icon } from "antd";
 import Utils from "../utils/Utils";
 
-const { deleteTodoItem, fetchTodos } = todoActions;
+const { deleteTodoItem, fetchTodos, deleteTodoTaskItem } = todoActions;
 
 interface IProps {
-	filterType: FilterType;
-	item: TodoItem;
-	deleteTodoItem: typeof deleteTodoItem;
-	fetchTodos: typeof fetchTodos;
+	filterType?: FilterType;
+	isTask?: boolean;
+	item: TodoItem | TaskItem;
+
+	deleteTodoTaskItem?: typeof deleteTodoTaskItem;
+	deleteTodoItem?: typeof deleteTodoItem;
+	fetchTodos?: typeof fetchTodos;
 }
 
 const DeleteTask: FC<IProps> = props => {
