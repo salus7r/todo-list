@@ -10,7 +10,7 @@ import {
 	TodoItem
 } from "./../../../autorestClients/TodoList/TodoList.Client/models";
 import { ImmerReducer } from "immer-reducer";
-import { TodoManagement, FilterType, StatusType } from "./types";
+import { TodoManagement, FilterType } from "./types";
 
 const initialState: TodoManagement = {
 	loading: false,
@@ -89,7 +89,7 @@ class TodosReducer extends ImmerReducer<TodoManagement> {
 		this.todoLoading(true);
 	}
 
-	updateTodoListAfterDelete(_res: boolean, _haveError: boolean, _req: UpdateTodoItemStatusReq) {
+	updateTodoListAfterDelete(_res: boolean, _haveError: boolean, _req: DeleteTodoItemReq) {
 		if (!_haveError) {
 			this.draftState.todoList = this.draftState.todoList.filter(item => item.id !== _req.id);
 		} else {
@@ -122,11 +122,48 @@ class TodosReducer extends ImmerReducer<TodoManagement> {
 	}
 
 	updateStatusTodoTaskItem(_req: UpdateTaskItemStatusReq) {
+		debugger;
 		this.todoLoading(true);
+	}
+
+	updateTodoTaskListAfterStatusUpdate(_res: boolean, _haveError: boolean, _req: UpdateTaskItemStatusReq) {
+		if (!_haveError) {
+			this.draftState.todoList = this.draftState.todoList.map(item => {
+				if (item.id === _req.todoItemId) {
+					item.subTasks = item.subTasks.map(task => {
+						if (task.id === _req.taskItemId) {
+							task.status = _req.status;
+						}
+
+						return item;
+					});
+				}
+
+				return item;
+			});
+		} else {
+			this.setError(true);
+		}
+		this.todoLoading(false);
 	}
 
 	deleteTodoTaskItem(_req: DeleteTaskItemReq) {
 		this.todoLoading(true);
+	}
+
+	updateTodoTaskListAfterDelete(_res: boolean, _haveError: boolean, _req: DeleteTaskItemReq) {
+		if (!_haveError) {
+			this.draftState.todoList = this.draftState.todoList.map(item => {
+				if (item.id === _req.todoItemId) {
+					item.subTasks = item.subTasks.filter(task => task.id !== _req.taskItemId);
+				}
+
+				return item;
+			});
+		} else {
+			this.setError(true);
+		}
+		this.todoLoading(false);
 	}
 }
 

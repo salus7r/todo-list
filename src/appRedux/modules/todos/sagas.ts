@@ -1,9 +1,7 @@
-import { DeleteTodoItemReq } from "./../../../autorestClients/TodoList/TodoList.Client/models/index";
-import { filterType } from "./../../../autorestClients/TodoList/TodoList.Client/models/parameters";
 import { all, put, takeEvery } from "redux-saga/effects";
 import { todoActions } from "./index";
 import RestClient from "../../../autorestClients/RestClient";
-import { AddTodoItemResponse, TodoItem } from "../../../autorestClients/TodoList/TodoList.Client/models";
+import { TodoItem } from "../../../autorestClients/TodoList/TodoList.Client/models";
 
 const { _todoClient } = RestClient;
 
@@ -20,6 +18,7 @@ function* getTodos(action: ReturnType<typeof todoActions.fetchTodos>) {
 				haveError = true;
 			});
 		yield put(todoActions.setTodos(response));
+		yield put(todoActions.setError(haveError));
 		yield put(todoActions.todoLoading(false));
 	} catch (e) {
 		yield put(todoActions.setError(true));
@@ -95,6 +94,40 @@ function* updateTodoItem(action: ReturnType<typeof todoActions.updateTodoItem>) 
 	}
 }
 
+function* updateStatusTodoTaskItem(action: ReturnType<typeof todoActions.updateStatusTodoTaskItem>) {
+	try {
+		var haveError = false;
+		var response: boolean = yield _todoClient
+			.updateTaskItemStatus({ request: action.payload })
+			.then(res => res.body)
+			.catch(error => {
+				console.log(error);
+				haveError = true;
+			});
+		yield put(todoActions.updateTodoTaskListAfterStatusUpdate(response, haveError, action.payload));
+	} catch (e) {
+		yield put(todoActions.setError(true));
+		yield put(todoActions.todoLoading(false));
+	}
+}
+
+function* deleteTodoTaskItem(action: ReturnType<typeof todoActions.deleteTodoTaskItem>) {
+	try {
+		var haveError = false;
+		var response: boolean = yield _todoClient
+			.deleteTaskItem({ request: action.payload })
+			.then(res => res.body)
+			.catch(error => {
+				console.log(error);
+				haveError = true;
+			});
+		yield put(todoActions.updateTodoTaskListAfterDelete(response, haveError, action.payload));
+	} catch (e) {
+		yield put(todoActions.setError(true));
+		yield put(todoActions.todoLoading(false));
+	}
+}
+
 //watcher
 
 export default function* todoSagas() {
@@ -103,6 +136,8 @@ export default function* todoSagas() {
 		yield takeEvery(todoActions.addTodoItem.type, addTodoItem),
 		yield takeEvery(todoActions.updateStatusTodoItem.type, updateStatusTodoItem),
 		yield takeEvery(todoActions.deleteTodoItem.type, deleteTodoItem),
-		yield takeEvery(todoActions.updateTodoItem.type, updateTodoItem)
+		yield takeEvery(todoActions.updateTodoItem.type, updateTodoItem),
+		yield takeEvery(todoActions.updateStatusTodoTaskItem.type, updateStatusTodoTaskItem),
+		yield takeEvery(todoActions.deleteTodoTaskItem.type, deleteTodoTaskItem)
 	]);
 }

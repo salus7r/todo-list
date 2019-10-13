@@ -1,12 +1,11 @@
 import React, { FC } from "react";
-import { List, Row, Col, Tag } from "antd";
+import { List, Row, Col } from "antd";
 import { TaskItem } from "../autorestClients/TodoList/TodoList.Client/models";
 import { StatusType } from "../appRedux/modules/todos/types";
 import { todoActions } from "../appRedux/modules/todos";
 import TaskActive from "./TaskActiveButton";
 import TaskComplete from "./TaskCompleteButton";
 import DeleteTask from "./TaskDeleteButton";
-import _ from "lodash";
 
 const { deleteTodoTaskItem, updateTodoTaskItem, updateStatusTodoTaskItem } = todoActions;
 

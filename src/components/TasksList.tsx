@@ -11,10 +11,6 @@ interface IProps extends ITaskListingStateProps {
 interface IState {}
 
 class TasksList extends Component<IProps, IState> {
-	constructor(props: IProps) {
-		super(props);
-	}
-
 	render() {
 		const { subTasks, deleteTodoTaskItem, updateTodoTaskItem, updateStatusTodoTaskItem, todoItemId } = this.props;
 
