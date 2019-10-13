@@ -3,8 +3,14 @@ Simple Todo List App built in ReactJs using TypeScript with backend apis in c# .
 
 Project is live and can be access using this url: https://todolists7r.azurewebsites.net
 
-
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+I've added the following things in it:
+- React Redux
+- Redux Sagas
+- Immer Reducer
+- ReSelect
+- Auto Rest Client
+- Ant Design
 
 ## Available Scripts
 
