@@ -1,10 +1,9 @@
 import { todoActions } from "../appRedux/modules/todos";
-import { FilterType, StatusType } from "../appRedux/modules/todos/types";
+import { FilterType } from "../appRedux/modules/todos/types";
 import { TodoItem, UpdateTodoItemReq } from "../autorestClients/TodoList/TodoList.Client/models";
 import React, { Component, Fragment } from "react";
-import { Tooltip, Button, Form, Modal, Input, Radio, DatePicker } from "antd";
-import { FormComponentProps } from "antd/lib/form";
-import moment from "moment";
+import { Tooltip, Button } from "antd";
+import ViewEditTaskFormModal from "./AddEditTodoItemModal";
 import Utils from "../utils/Utils";
 
 const { updateTodoItem, fetchTodos } = todoActions;
@@ -41,6 +40,7 @@ class ViewEditTask extends Component<IProps> {
 			}
 
 			values.id = item.id;
+			values.dueDate = !!values.dueDate ? new Date(values.dueDate) : null;
 
 			updateTodoItem(values);
 			setTimeout(function() {
@@ -66,7 +66,7 @@ class ViewEditTask extends Component<IProps> {
 						Edit
 					</Button>
 				</Tooltip>
-				<ViewEditTaskForm
+				<ViewEditTaskFormModal
 					wrappedComponentRef={this.saveFormRef}
 					visible={this.state.visible}
 					onCancel={this.handleCancel}
@@ -77,55 +77,5 @@ class ViewEditTask extends Component<IProps> {
 		);
 	}
 }
-
-interface IViewEditTaskFormProps extends FormComponentProps {
-	itemData: TodoItem;
-	visible: boolean;
-	onCancel: () => void;
-	onUpdate: () => void;
-}
-
-const ViewEditTaskForm = Form.create<IViewEditTaskFormProps>({ name: "form_in_modal" })(
-	// eslint-disable-next-line
-	class extends React.Component<IViewEditTaskFormProps> {
-		render() {
-			const { visible, onCancel, onUpdate, form, itemData } = this.props;
-			const { getFieldDecorator } = form;
-
-			const dateFormat = "YYYY/MM/DD";
-
-			return (
-				<Modal width={800} visible={visible} title="View / Edit Task" okText="Update" onCancel={onCancel} onOk={onUpdate}>
-					<Form layout="vertical">
-						<Form.Item label="Title">
-							{getFieldDecorator("title", {
-								rules: [{ required: true, message: "Please input the title of collection!" }],
-								initialValue: itemData.title
-							})(<Input autoFocus />)}
-						</Form.Item>
-						<Form.Item label="Description">
-							{getFieldDecorator("description", {
-								initialValue: itemData.description
-							})(<Input type="textarea" />)}
-						</Form.Item>
-						<Form.Item label="DueDate">
-							<DatePicker
-								id="dueDate"
-								defaultValue={moment(!!itemData.dueDate ? new Date(itemData.dueDate) : new Date(), dateFormat)}
-								format={dateFormat}
-							/>
-						</Form.Item>
-						<Form.Item label="status">
-							<Radio.Group id={"status"} defaultValue={itemData.status} buttonStyle="solid">
-								<Radio.Button value={StatusType.Active}>Active</Radio.Button>
-								<Radio.Button value={StatusType.Completed}>Completed</Radio.Button>
-							</Radio.Group>
-						</Form.Item>
-					</Form>
-				</Modal>
-			);
-		}
-	}
-);
 
 export default ViewEditTask;
