@@ -50,12 +50,12 @@ class AddTodoItemForm extends Component<IProps> {
 
 		return (
 			<Form layout={"inline"} onSubmit={this.handleSubmit} className="add-task-form margin-bottom-20px">
-				<Form.Item>
+				<Form.Item style={{ width: "50%" }} wrapperCol={{ span: 24 }}>
 					{getFieldDecorator("title", {
 						rules: [{ required: true, message: "Title is required in order to create a task" }]
-					})(<Input placeholder="What is on your mind?" style={{ width: "500px" }} autoFocus={true} />)}
+					})(<Input placeholder="What is on your mind?" autoFocus={true} />)}
 				</Form.Item>
-				<Form.Item>
+				<Form.Item style={{ textAlign: "left" }}>
 					<Button type="primary" htmlType="submit" className="add-task-form-button" disabled={loading}>
 						Submit
 					</Button>
