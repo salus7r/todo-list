@@ -51,6 +51,6 @@
 		"@types/lodash": "^4.14.138",
 		"@types/react-redux": "^5.0.7",
 		"redux-devtools": "^3.5.0",
-		"yarn": "^1.19.1"
+		"yarn": "^1.22.0"
 	}
 }
